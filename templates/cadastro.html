@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Criar conta - TrampoHub</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+<body>
+
+
+<main class="login-container">
+
+    <section class="login-card">
+
+
+        <a
+            href="{{ url_for('inicio') }}"
+            class="brand login-brand"
+        >
+            Trampo<span>Hub</span>
+        </a>
+
+
+        <h1>
+            Criar conta
+        </h1>
+
+        <p>
+            Escolha o tipo de conta que deseja criar.
+        </p>
+
+
+        <div class="choice-list">
+
+
+            <a
+                href="{{ url_for('cadastro_candidato') }}"
+                class="choice-card"
+            >
+
+                <div class="choice-icon blue">
+                    👤
+                </div>
+
+                <div>
+
+                    <strong>
+                        Sou candidato
+                    </strong>
+
+                    <span>
+                        Quero encontrar oportunidades de emprego.
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            <a
+                href="{{ url_for('cadastro_empresa') }}"
+                class="choice-card"
+            >
+
+                <div class="choice-icon purple">
+                    🏢
+                </div>
+
+                <div>
+
+                    <strong>
+                        Sou empresa
+                    </strong>
+
+                    <span>
+                        Quero publicar vagas e encontrar candidatos.
+                    </span>
+
+                </div>
+
+            </a>
+
+
+        </div>
+
+
+        <div class="login-footer">
+
+            <p>
+                Já possui uma conta?
+            </p>
+
+            <a href="{{ url_for('login') }}">
+                Entrar
+            </a>
+
+        </div>
+
+
+    </section>
+
+</main>
+
+</body>
+
+</html>

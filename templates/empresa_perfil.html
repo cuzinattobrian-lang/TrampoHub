@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Perfil da Empresa - TrampoHub</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+<body>
+
+
+<header class="topbar">
+
+    <div class="topbar-content">
+
+        <a
+            href="{{ url_for('empresa') }}"
+            class="brand"
+        >
+            Trampo<span>Hub</span>
+        </a>
+
+        <a
+            href="{{ url_for('logout') }}"
+            class="logout-link"
+        >
+            Sair
+        </a>
+
+    </div>
+
+</header>
+
+
+<main class="perfil-container">
+
+
+    <section class="perfil-header">
+
+        <div>
+
+            <span class="perfil-label">
+                PERFIL DA EMPRESA
+            </span>
+
+            <h1>
+                {{ empresa.nome }}
+            </h1>
+
+            <p>
+                Gerencie as informações da sua empresa.
+            </p>
+
+        </div>
+
+        <div class="perfil-avatar">
+            {{ empresa.nome[0]|upper }}
+        </div>
+
+    </section>
+
+
+    {% if erro %}
+
+        <div class="alert alert-error">
+            {{ erro }}
+        </div>
+
+    {% endif %}
+
+
+    {% if sucesso %}
+
+        <div class="alert alert-success">
+            {{ sucesso }}
+        </div>
+
+    {% endif %}
+
+
+    <form
+        method="POST"
+        action="{{ url_for('empresa_perfil') }}"
+    >
+
+
+        <section class="perfil-section">
+
+            <div class="section-title">
+
+                <h2>
+                    Informações da empresa
+                </h2>
+
+                <p>
+                    Dados utilizados no perfil da empresa.
+                </p>
+
+            </div>
+
+
+            <div class="perfil-grid">
+
+
+                <div class="campo">
+
+                    <label>
+                        Nome da empresa
+                    </label>
+
+                    <input
+                        type="text"
+                        name="nome"
+                        value="{{ empresa.nome }}"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label>
+                        CNPJ
+                    </label>
+
+                    <input
+                        type="text"
+                        value="{{ empresa.cnpj }}"
+                        disabled
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label>
+                        E-mail
+                    </label>
+
+                    <input
+                        type="email"
+                        value="{{ empresa.email }}"
+                        disabled
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label>
+                        Telefone
+                    </label>
+
+                    <input
+                        type="text"
+                        name="telefone"
+                        value="{{ empresa.telefone }}"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label>
+                        Endereço
+                    </label>
+
+                    <input
+                        type="text"
+                        name="endereco"
+                        value="{{ empresa.endereco }}"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label>
+                        Área de atuação
+                    </label>
+
+                    <input
+                        type="text"
+                        name="area"
+                        value="{{ empresa.area }}"
+                    >
+
+                </div>
+
+
+                <div class="campo campo-experiencias">
+
+                    <label>
+                        Sobre a empresa
+                    </label>
+
+                    <textarea
+                        name="descricao"
+                    >{{ empresa.descricao }}</textarea>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+        <div class="perfil-actions">
+
+            <a
+                href="{{ url_for('empresa') }}"
+                class="btn-secondary"
+            >
+                ← Voltar
+            </a>
+
+            <button
+                type="submit"
+                class="btn-salvar"
+            >
+                Salvar alterações
+            </button>
+
+        </div>
+
+
+    </form>
+
+
+</main>
+
+</body>
+
+</html>

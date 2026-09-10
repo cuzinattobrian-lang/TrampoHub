@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Área da Empresa - TrampoHub</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+<body>
+
+
+<header class="topbar">
+
+    <div class="topbar-content">
+
+        <a
+            href="{{ url_for('empresa') }}"
+            class="brand"
+        >
+            Trampo<span>Hub</span>
+        </a>
+
+        <div class="user-menu">
+
+            <div class="user-avatar">
+                {{ empresa.nome[0]|upper }}
+            </div>
+
+            <div class="user-info">
+
+                <strong>
+                    {{ empresa.nome }}
+                </strong>
+
+                <span>
+                    Empresa
+                </span>
+
+            </div>
+
+            <a
+                href="{{ url_for('logout') }}"
+                class="logout-link"
+            >
+                Sair
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="dashboard">
+
+
+    <section class="welcome">
+
+        <div class="welcome-text">
+
+            <span class="welcome-label">
+                PAINEL DA EMPRESA
+            </span>
+
+            <h1>
+                Olá, {{ empresa.nome }}! 👋
+            </h1>
+
+            <p>
+                Publique vagas, acompanhe candidatos e
+                encontre os profissionais certos para sua empresa.
+            </p>
+
+        </div>
+
+        <div class="welcome-decoration">
+            🏢
+        </div>
+
+    </section>
+
+
+    <section class="stats">
+
+
+        <div class="stat">
+
+            <div class="stat-icon blue">
+                💼
+            </div>
+
+            <div class="stat-content">
+
+                <span>
+                    Minhas vagas
+                </span>
+
+                <strong>
+                    {{ total_vagas }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon purple">
+                👥
+            </div>
+
+            <div class="stat-content">
+
+                <span>
+                    Candidatos
+                </span>
+
+                <strong>
+                    {{ total_candidatos }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon yellow">
+                ⏳
+            </div>
+
+            <div class="stat-content">
+
+                <span>
+                    Em análise
+                </span>
+
+                <strong>
+                    {{ em_analise }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+    <section class="section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>
+                    Acesso rápido
+                </h2>
+
+                <p>
+                    Gerencie suas vagas e candidatos.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="actions-grid">
+
+
+            <a
+                href="{{ url_for('nova_vaga') }}"
+                class="action-card"
+            >
+
+                <div class="action-icon blue">
+                    +
+                </div>
+
+                <div class="action-content">
+
+                    <h3>
+                        Publicar nova vaga
+                    </h3>
+
+                    <p>
+                        Crie uma nova oportunidade
+                        para encontrar candidatos.
+                    </p>
+
+                    <span class="action-link">
+                        Criar vaga →
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            <a
+                href="{{ url_for('vagas_empresa') }}"
+                class="action-card"
+            >
+
+                <div class="action-icon purple">
+                    💼
+                </div>
+
+                <div class="action-content">
+
+                    <h3>
+                        Minhas vagas
+                    </h3>
+
+                    <p>
+                        Veja e acompanhe todas as vagas
+                        publicadas pela sua empresa.
+                    </p>
+
+                    <span class="action-link">
+                        Ver vagas →
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            <a
+                href="{{ url_for('candidatos_empresa') }}"
+                class="action-card"
+            >
+
+                <div class="action-icon green">
+                    👥
+                </div>
+
+                <div class="action-content">
+
+                    <h3>
+                        Candidatos
+                    </h3>
+
+                    <p>
+                        Analise os candidatos que se
+                        inscreveram nas suas vagas.
+                    </p>
+
+                    <span class="action-link">
+                        Ver candidatos →
+                    </span>
+
+                </div>
+
+            </a>
+
+
+        </div>
+
+    </section>
+
+
+</main>
+
+</body>
+
+</html>

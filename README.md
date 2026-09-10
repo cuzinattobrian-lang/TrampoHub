@@ -9,8 +9,8 @@ O **TrampoHub** é uma plataforma web desenvolvida em Python com Flask para cone
 ## 👥 Integrantes
 
 - Pedro Henrique Lima de Amorim — RM: [19255]
-- Brian Iha Cuzinatto — RM: [Inserir RM]
-- Jean Alcaras — RM: [Inserir RM]
+- Brian Iha Cuzinatto — RM: [22550]
+- Jean Alcaras — RM: [17129]
 - Luan Gonçalves Mesquita  — RM: [22866]
 - Miguel Pinheiro Farias Nunes — RM: [22559]
 

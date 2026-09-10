@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Minhas Candidaturas - TrampoHub</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+<body>
+
+
+<header class="topbar">
+
+    <div class="topbar-content">
+
+        <a
+            href="{{ url_for('candidato') }}"
+            class="brand"
+        >
+            Trampo<span>Hub</span>
+        </a>
+
+        <a
+            href="{{ url_for('logout') }}"
+            class="logout-link"
+        >
+            Sair
+        </a>
+
+    </div>
+
+</header>
+
+
+<main class="dashboard">
+
+
+    <section class="vagas-header">
+
+        <h1>
+            Minhas candidaturas
+        </h1>
+
+        <p>
+            Acompanhe o andamento das suas candidaturas.
+        </p>
+
+    </section>
+
+
+    {% if candidaturas %}
+
+        <div class="candidaturas-lista">
+
+            {% for candidatura in candidaturas %}
+
+                <article class="candidatura-card">
+
+                    <div class="candidatura-info">
+
+                        <h3>
+                            {{ candidatura.vaga_titulo }}
+                        </h3>
+
+                        <p>
+                            {{ candidatura.empresa_nome }}
+                        </p>
+
+                        <p>
+                            {{ candidatura.modalidade }}
+                            ·
+                            {{ candidatura.contrato }}
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        {% if candidatura.status == "Em Análise" %}
+
+                            <span class="status-analise">
+                                Em análise
+                            </span>
+
+                        {% elif candidatura.status == "Aprovado" %}
+
+                            <span class="status-aprovado">
+                                Aprovado
+                            </span>
+
+                        {% else %}
+
+                            <span class="status-reprovado">
+                                Reprovado
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </article>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="empty-state">
+
+            <h2>
+                Você ainda não possui candidaturas.
+            </h2>
+
+            <p>
+                Encontre uma vaga e envie sua candidatura.
+            </p>
+
+            <a
+                href="{{ url_for('vagas') }}"
+                class="btn-primary"
+            >
+                Ver vagas disponíveis
+            </a>
+
+        </div>
+
+    {% endif %}
+
+
+</main>
+
+</body>
+
+</html>

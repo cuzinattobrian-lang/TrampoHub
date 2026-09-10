@@ -1,83 +1,99 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
+
 <head>
+
     <meta charset="UTF-8">
-    <title>TrampoHub - Home</title>
-    <link rel="stylesheet" href="/static/style.css">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>TrampoHub</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
 </head>
+
 <body>
 
-    <h1>TrampoHub</h1>
-    <p>Encontre oportunidades de trabalho e candidate-se a vagas.</p>
 
-    <!-- DASHBOARD / CARDS DE MÉTRICAS -->
-    <div class="cards-container" style="display: flex; gap: 20px; margin-bottom: 20px;">
-        <div style="border: 1px solid #ccc; padding: 15px; border-radius: 5px;">
-            <h3>Total de Candidaturas</h3>
-            <p style="font-size: 24px; font-weight: bold;">{{ total }}</p>
+<header class="topbar">
+
+    <div class="topbar-content">
+
+        <a
+            href="{{ url_for('inicio') }}"
+            class="brand"
+        >
+            Trampo<span>Hub</span>
+        </a>
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('login', tipo='candidato') }}">
+                Entrar
+            </a>
+
+            <a href="{{ url_for('cadastro') }}">
+                Criar conta
+            </a>
+
         </div>
-        <div style="border: 1px solid #ccc; padding: 15px; border-radius: 5px;">
-            <h3>Em Análise</h3>
-            <p style="font-size: 24px; font-weight: bold;">{{ em_analise }}</p>
-        </div>
-        <div style="border: 1px solid #ccc; padding: 15px; border-radius: 5px;">
-            <h3>Aprovadas</h3>
-            <p style="font-size: 24px; font-weight: bold;">{{ aprovadas }}</p>
-        </div>
+
     </div>
 
-    <a href="/formulario">
-        <button>Fazer nova candidatura</button>
-    </a>
+</header>
 
-    <hr style="margin: 30px 0;">
 
-    <!-- CAMPO DE BUSCA / FILTRO -->
-    <h2>Candidaturas Cadastradas</h2>
-    <form method="GET" action="/">
-        <input type="text" name="busca" value="{{ termo_busca }}" placeholder="Pesquisar por nome ou vaga...">
-        <button type="submit">Filtrar</button>
-        {% if termo_busca %}
-            <a href="/"><button type="button">Limpar</button></a>
-        {% endif %}
-    </form>
-    <br>
+<main class="home">
 
-    <!-- TABELA DE REGISTROS -->
-    <table border="1" cellpadding="8" style="border-collapse: collapse; width: 100%;">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>E-mail</th>
-                <th>Vaga</th>
-                <th>Modalidade</th>
-                <th>Contrato</th>
-                <th>Status</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for c in candidaturas %}
-            <tr>
-                <td>{{ c.nome }}</td>
-                <td>{{ c.email }}</td>
-                <td>{{ c.vaga }}</td>
-                <td>{{ c.modalidade }}</td>
-                <td>{{ c.contrato }}</td>
-                <td>{{ c.status }}</td>
-                <td>
-                    <form action="/mudar-status/{{ c.id }}" method="POST" style="display:inline;">
-                        <button type="submit">Mudar Status</button>
-                    </form>
-                </td>
-            </tr>
-            {% else %}
-            <tr>
-                <td colspan="7" style="text-align: center;">Nenhuma candidatura encontrada.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+
+    <section class="hero">
+
+        <span class="hero-label">
+            PLATAFORMA DE EMPREGOS
+        </span>
+
+        <h1>
+            Encontre seu próximo
+            <span>emprego.</span>
+        </h1>
+
+        <p>
+            O TrampoHub conecta candidatos e empresas,
+            tornando o processo de contratação mais simples,
+            rápido e organizado.
+        </p>
+
+
+        <div class="hero-buttons">
+
+            <a
+                href="{{ url_for('cadastro_candidato') }}"
+                class="btn-primary"
+            >
+                Sou candidato
+            </a>
+
+            <a
+                href="{{ url_for('cadastro_empresa') }}"
+                class="btn-secondary"
+            >
+                Sou empresa
+            </a>
+
+        </div>
+
+    </section>
+
+
+</main>
 
 </body>
+
 </html>

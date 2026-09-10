@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Cadastro de Candidato - TrampoHub</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+<body>
+
+
+<main class="form-page">
+
+    <section class="form-card large">
+
+
+        <div class="form-header">
+
+            <a
+                href="{{ url_for('inicio') }}"
+                class="brand"
+            >
+                Trampo<span>Hub</span>
+            </a>
+
+            <h1>
+                Criar conta de candidato
+            </h1>
+
+            <p>
+                Preencha seus dados profissionais.
+            </p>
+
+        </div>
+
+
+        {% if erro %}
+
+            <div class="alert alert-error">
+                {{ erro }}
+            </div>
+
+        {% endif %}
+
+
+        <form
+            method="POST"
+            action="{{ url_for('cadastro_candidato') }}"
+        >
+
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label>
+                        Nome completo *
+                    </label>
+
+                    <input
+                        type="text"
+                        name="nome"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        E-mail *
+                    </label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Telefone *
+                    </label>
+
+                    <input
+                        type="text"
+                        name="telefone"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Endereço *
+                    </label>
+
+                    <input
+                        type="text"
+                        name="endereco"
+                        required
+                    >
+
+                </div>
+
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Experiências profissionais
+                </label>
+
+                <textarea
+                    name="experiencias"
+                    placeholder="Informe suas experiências profissionais, cargos anteriores, empresas e atividades realizadas..."
+                ></textarea>
+
+            </div>
+
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label>
+                        Senha *
+                    </label>
+
+                    <input
+                        type="password"
+                        name="senha"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Confirmar senha *
+                    </label>
+
+                    <input
+                        type="password"
+                        name="confirmar_senha"
+                        required
+                    >
+
+                </div>
+
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <a
+                    href="{{ url_for('cadastro') }}"
+                    class="btn-secondary"
+                >
+                    Voltar
+                </a>
+
+                <button type="submit">
+                    Criar conta
+                </button>
+
+            </div>
+
+
+        </form>
+
+
+    </section>
+
+</main>
+
+</body>
+
+</html>
