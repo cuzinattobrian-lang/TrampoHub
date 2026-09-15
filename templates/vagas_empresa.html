@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Minhas Vagas - TrampoHub</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+<body>
+
+
+<header class="topbar">
+
+    <div class="topbar-content">
+
+        <a
+            href="{{ url_for('routes.empresa') }}"
+            class="brand"
+        >
+            Trampo<span>Hub</span>
+        </a>
+
+        <a
+            href="{{ url_for('routes.logout') }}"
+            class="logout-link"
+        >
+            Sair
+        </a>
+
+    </div>
+
+</header>
+
+
+<main class="dashboard">
+
+
+    <section class="vagas-header">
+
+        <h1>
+            Minhas vagas
+        </h1>
+
+        <p>
+            Vagas publicadas pela sua empresa.
+        </p>
+
+        <br>
+
+        <a
+            href="{{ url_for('routes.nova_vaga') }}"
+            class="btn-primary"
+        >
+            + Publicar nova vaga
+        </a>
+
+
+        <form
+            method="GET"
+            action="{{ url_for('routes.vagas_empresa') }}"
+            class="busca-form"
+        >
+
+            <input
+                type="text"
+                name="busca"
+                value="{{ termo_busca }}"
+                placeholder="Pesquisar por título ou descrição..."
+            >
+
+            <button type="submit">
+                Pesquisar
+            </button>
+
+        </form>
+
+    </section>
+
+
+    {% if vagas %}
+
+        {% for vaga in vagas %}
+
+            <article class="vaga-card">
+
+                <h2>
+                    {{ vaga.titulo }}
+                </h2>
+
+                <div class="vaga-info">
+
+                    <span class="vaga-tag">
+                        {{ vaga.modalidade }}
+                    </span>
+
+                    <span class="vaga-tag">
+                        {{ vaga.contrato }}
+                    </span>
+
+                </div>
+
+                <p>
+                    {{ vaga.descricao }}
+                </p>
+
+                <form
+                    method="POST"
+                    action="{{ url_for('routes.excluir_vaga', id=vaga.id) }}"
+                    onsubmit="return confirm('Excluir esta vaga? As candidaturas relacionadas também serão removidas.');"
+                >
+
+                    <button type="submit" class="btn-secondary">
+                        Excluir vaga
+                    </button>
+
+                </form>
+
+            </article>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="empty-state">
+
+            {% if termo_busca %}
+
+                <h2>
+                    Nenhuma vaga encontrada para "{{ termo_busca }}".
+                </h2>
+
+                <p>
+                    Tente pesquisar por outro termo.
+                </p>
+
+            {% else %}
+
+                <h2>
+                    Você ainda não publicou nenhuma vaga.
+                </h2>
+
+                <p>
+                    Publique sua primeira oportunidade.
+                </p>
+
+                <a
+                    href="{{ url_for('routes.nova_vaga') }}"
+                    class="btn-primary"
+                >
+                    Publicar vaga
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    {% endif %}
+
+
+</main>
+
+</body>
+
+</html>

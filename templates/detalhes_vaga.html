@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>{{ vaga.titulo }} - TrampoHub</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+<body>
+
+
+<header class="topbar">
+
+    <div class="topbar-content">
+
+        <a
+            href="{{ url_for('routes.candidato') }}"
+            class="brand"
+        >
+            Trampo<span>Hub</span>
+        </a>
+
+        <a
+            href="{{ url_for('routes.logout') }}"
+            class="logout-link"
+        >
+            Sair
+        </a>
+
+    </div>
+
+</header>
+
+
+<main class="dashboard">
+
+    <article class="vaga-detalhes">
+
+
+        <span class="welcome-label">
+            OPORTUNIDADE
+        </span>
+
+
+        <h1>
+            {{ vaga.titulo }}
+        </h1>
+
+
+        <p class="empresa">
+            {{ vaga.empresa_nome }}
+        </p>
+
+
+        <div class="vaga-info">
+
+            <span class="vaga-tag">
+                {{ vaga.modalidade }}
+            </span>
+
+            <span class="vaga-tag">
+                {{ vaga.contrato }}
+            </span>
+
+            {% if vaga.salario %}
+
+                <span class="vaga-tag">
+                    {{ vaga.salario }}
+                </span>
+
+            {% endif %}
+
+        </div>
+
+
+        <section>
+
+            <h2>
+                Sobre a vaga
+            </h2>
+
+            <p>
+                {{ vaga.descricao }}
+            </p>
+
+        </section>
+
+
+        <section>
+
+            <h2>
+                Requisitos
+            </h2>
+
+            <p>
+                {% if vaga.requisitos %}
+                    {{ vaga.requisitos }}
+                {% else %}
+                    Nenhum requisito informado.
+                {% endif %}
+            </p>
+
+        </section>
+
+
+        <div class="vaga-acoes">
+
+            {% if ja_candidatou %}
+
+                <div class="alert alert-success">
+                    Você já se candidatou a esta vaga.
+                </div>
+
+                <a
+                    href="{{ url_for('routes.minhas_candidaturas') }}"
+                    class="btn-primary"
+                >
+                    Ver minha candidatura
+                </a>
+
+            {% else %}
+
+                <form
+                    method="POST"
+                    action="{{ url_for('routes.candidatar', vaga_id=vaga.id) }}"
+                >
+
+                    <button type="submit">
+                        Candidatar-me
+                    </button>
+
+                </form>
+
+            {% endif %}
+
+
+            <a
+                href="{{ url_for('routes.vagas') }}"
+                class="btn-secondary"
+            >
+                ← Voltar para vagas
+            </a>
+
+        </div>
+
+
+    </article>
+
+</main>
+
+</body>
+
+</html>

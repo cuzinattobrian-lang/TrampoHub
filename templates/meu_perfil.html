@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Meu Perfil - TrampoHub</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+<body>
+
+
+<header class="topbar">
+
+    <div class="topbar-content">
+
+        <a
+            href="{{ url_for('routes.candidato') }}"
+            class="brand"
+        >
+            Trampo<span>Hub</span>
+        </a>
+
+        <div class="user-menu">
+
+            <div class="user-avatar">
+                {{ candidato.nome[0]|upper }}
+            </div>
+
+            <div class="user-info">
+
+                <strong>
+                    {{ candidato.nome }}
+                </strong>
+
+                <span>
+                    Candidato
+                </span>
+
+            </div>
+
+            <a
+                href="{{ url_for('routes.logout') }}"
+                class="logout-link"
+            >
+                Sair
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="perfil-container">
+
+
+    <!-- CABEÇALHO -->
+
+    <section class="perfil-header">
+
+        <div>
+
+            <span class="perfil-label">
+                MEU PERFIL
+            </span>
+
+            <h1>
+                {{ candidato.nome }}
+            </h1>
+
+            <p>
+                Mantenha suas informações profissionais atualizadas.
+            </p>
+
+        </div>
+
+        <div class="perfil-avatar">
+            {{ candidato.nome[0]|upper }}
+        </div>
+
+    </section>
+
+
+    <!-- MENSAGEM DE ERRO -->
+
+    {% if erro %}
+
+        <div class="alert alert-error">
+            {{ erro }}
+        </div>
+
+    {% endif %}
+
+
+    <!-- MENSAGEM DE SUCESSO -->
+
+    {% if sucesso %}
+
+        <div class="alert alert-success">
+            {{ sucesso }}
+        </div>
+
+    {% endif %}
+
+
+    <!-- FORMULÁRIO -->
+
+    <form
+        method="POST"
+        action="{{ url_for('routes.meu_perfil') }}"
+    >
+
+
+        <!-- DADOS PESSOAIS -->
+
+        <section class="perfil-section">
+
+            <div class="section-title">
+
+                <h2>
+                    Informações pessoais
+                </h2>
+
+                <p>
+                    Seus dados básicos de contato.
+                </p>
+
+            </div>
+
+
+            <div class="perfil-grid">
+
+
+                <div class="campo">
+
+                    <label for="nome">
+                        Nome completo
+                    </label>
+
+                    <input
+                        type="text"
+                        id="nome"
+                        name="nome"
+                        value="{{ candidato.nome }}"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="email">
+                        E-mail
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value="{{ candidato.email }}"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="telefone">
+                        Telefone
+                    </label>
+
+                    <input
+                        type="text"
+                        id="telefone"
+                        name="telefone"
+                        value="{{ candidato.telefone }}"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="endereco">
+                        Endereço
+                    </label>
+
+                    <input
+                        type="text"
+                        id="endereco"
+                        name="endereco"
+                        value="{{ candidato.endereco }}"
+                        required
+                    >
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- EXPERIÊNCIAS -->
+
+        <section class="perfil-section">
+
+            <div class="section-title">
+
+                <h2>
+                    Experiências profissionais
+                </h2>
+
+                <p>
+                    Conte um pouco sobre suas experiências,
+                    cargos anteriores, empresas e atividades realizadas.
+                </p>
+
+            </div>
+
+
+            <div class="campo campo-experiencias">
+
+                <label for="experiencias">
+                    Experiências profissionais
+                </label>
+
+                <textarea
+                    id="experiencias"
+                    name="experiencias"
+                    placeholder="Exemplo:
+
+Assistente Administrativo - Empresa XYZ
+2022 - 2024
+
+• Atendimento ao cliente
+• Organização de documentos
+• Controle de planilhas
+
+Auxiliar de Vendas - Empresa ABC
+2020 - 2022
+
+• Atendimento
+• Vendas
+• Organização de estoque"
+                >{{ candidato.experiencias }}</textarea>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- AÇÕES -->
+
+        <div class="perfil-actions">
+
+            <a
+                href="{{ url_for('routes.candidato') }}"
+                class="btn-secondary"
+            >
+                ← Voltar ao painel
+            </a>
+
+            <button
+                type="submit"
+                class="btn-salvar"
+            >
+                Salvar alterações
+            </button>
+
+        </div>
+
+
+    </form>
+
+
+</main>
+
+</body>
+
+</html>
