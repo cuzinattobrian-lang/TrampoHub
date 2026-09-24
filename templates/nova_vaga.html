@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Nova Vaga - TrampoHub</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+<body>
+
+
+<header class="topbar">
+
+    <div class="topbar-content">
+
+        <a
+            href="{{ url_for('routes.empresa') }}"
+            class="brand"
+        >
+            Trampo<span>Hub</span>
+        </a>
+
+        <a
+            href="{{ url_for('routes.logout') }}"
+            class="logout-link"
+        >
+            Sair
+        </a>
+
+    </div>
+
+</header>
+
+
+<main class="form-page">
+
+    <section class="form-card large">
+
+
+        <div class="form-header">
+
+            <span class="welcome-label">
+                ÁREA DA EMPRESA
+            </span>
+
+            <h1>
+                Publicar nova vaga
+            </h1>
+
+            <p>
+                Preencha as informações da oportunidade.
+            </p>
+
+        </div>
+
+
+        {% if erro %}
+
+            <div class="alert alert-error">
+                {{ erro }}
+            </div>
+
+        {% endif %}
+
+
+        <form
+            method="POST"
+            action="{{ url_for('routes.nova_vaga') }}"
+        >
+
+
+            <div class="form-group">
+
+                <label>
+                    Título da vaga *
+                </label>
+
+                <input
+                    type="text"
+                    name="titulo"
+                    placeholder="Ex.: Desenvolvedor Python"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Descrição da vaga *
+                </label>
+
+                <textarea
+                    name="descricao"
+                    placeholder="Descreva as atividades e responsabilidades..."
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Requisitos
+                </label>
+
+                <textarea
+                    name="requisitos"
+                    placeholder="Ex.: Python, Flask, Git, experiência com desenvolvimento web..."
+                ></textarea>
+
+            </div>
+
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label>
+                        Salário
+                    </label>
+
+                    <input
+                        type="text"
+                        name="salario"
+                        placeholder="Ex.: R$ 3.500,00"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Modalidade *
+                    </label>
+
+                    <select
+                        name="modalidade"
+                        required
+                    >
+
+                        <option value="">
+                            Selecione
+                        </option>
+
+                        <option value="Presencial">
+                            Presencial
+                        </option>
+
+                        <option value="Híbrido">
+                            Híbrido
+                        </option>
+
+                        <option value="Remoto">
+                            Remoto
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Tipo de contrato *
+                    </label>
+
+                    <select
+                        name="contrato"
+                        required
+                    >
+
+                        <option value="">
+                            Selecione
+                        </option>
+
+                        <option value="CLT">
+                            CLT
+                        </option>
+
+                        <option value="PJ">
+                            PJ
+                        </option>
+
+                        <option value="Estágio">
+                            Estágio
+                        </option>
+
+                        <option value="Temporário">
+                            Temporário
+                        </option>
+
+                        <option value="Freelancer">
+                            Freelancer
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <a
+                    href="{{ url_for('routes.empresa') }}"
+                    class="btn-secondary"
+                >
+                    Voltar
+                </a>
+
+                <button type="submit">
+                    Publicar vaga
+                </button>
+
+            </div>
+
+
+        </form>
+
+
+    </section>
+
+</main>
+
+</body>
+
+</html>

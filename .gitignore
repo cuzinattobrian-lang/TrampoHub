@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.vscode/
+
+# Banco de dados local (cada máquina cria o seu via init_db())
+*.db
+instance/

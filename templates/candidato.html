@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>TrampoHub - Área do Candidato</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+<body>
+
+    <header class="topbar">
+
+        <div class="topbar-content">
+
+            <a
+                href="{{ url_for('routes.candidato') }}"
+                class="brand"
+            >
+                Trampo<span>Hub</span>
+            </a>
+
+            <div class="user-menu">
+
+                <div class="user-avatar">
+                    {{ candidato.nome[0]|upper }}
+                </div>
+
+                <div class="user-info">
+
+                    <strong>
+                        {{ candidato.nome }}
+                    </strong>
+
+                    <span>
+                        Candidato
+                    </span>
+
+                </div>
+
+                <a
+                    href="{{ url_for('routes.logout') }}"
+                    class="logout-link"
+                >
+                    Sair
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <main class="dashboard">
+
+
+        <!-- BOAS-VINDAS -->
+
+        <section class="welcome">
+
+            <div class="welcome-text">
+
+                <span class="welcome-label">
+                    PAINEL DO CANDIDATO
+                </span>
+
+                <h1>
+                    Olá, {{ candidato.nome.split()[0] }}! 👋
+                </h1>
+
+                <p>
+                    Encontre novas oportunidades, acompanhe suas
+                    candidaturas e mantenha seu perfil atualizado.
+                </p>
+
+            </div>
+
+            <div class="welcome-decoration">
+                💼
+            </div>
+
+        </section>
+
+
+        <!-- ESTATÍSTICAS -->
+
+        <section class="stats">
+
+
+            <div class="stat">
+
+                <div class="stat-icon blue">
+                    📄
+                </div>
+
+                <div class="stat-content">
+
+                    <span>
+                        Minhas candidaturas
+                    </span>
+
+                    <strong>
+                        {{ total_candidaturas }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon yellow">
+                    ⏳
+                </div>
+
+                <div class="stat-content">
+
+                    <span>
+                        Em análise
+                    </span>
+
+                    <strong>
+                        {{ em_analise }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon green">
+                    ✓
+                </div>
+
+                <div class="stat-content">
+
+                    <span>
+                        Aprovadas
+                    </span>
+
+                    <strong>
+                        {{ aprovadas }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- ACESSO RÁPIDO -->
+
+        <section class="section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>
+                        Acesso rápido
+                    </h2>
+
+                    <p>
+                        Gerencie sua conta e encontre novas oportunidades.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="actions-grid">
+
+
+                <a
+                    href="{{ url_for('routes.vagas') }}"
+                    class="action-card"
+                >
+
+                    <div class="action-icon blue">
+                        🔎
+                    </div>
+
+                    <div class="action-content">
+
+                        <h3>
+                            Ver vagas disponíveis
+                        </h3>
+
+                        <p>
+                            Encontre oportunidades de emprego
+                            que combinam com seu perfil.
+                        </p>
+
+                        <span class="action-link">
+                            Ver vagas →
+                        </span>
+
+                    </div>
+
+                </a>
+
+
+                <a
+                    href="{{ url_for('routes.minhas_candidaturas') }}"
+                    class="action-card"
+                >
+
+                    <div class="action-icon purple">
+                        📋
+                    </div>
+
+                    <div class="action-content">
+
+                        <h3>
+                            Minhas candidaturas
+                        </h3>
+
+                        <p>
+                            Acompanhe o andamento das vagas
+                            para as quais você se candidatou.
+                        </p>
+
+                        <span class="action-link">
+                            Ver candidaturas →
+                        </span>
+
+                    </div>
+
+                </a>
+
+
+                <a
+                    href="{{ url_for('routes.meu_perfil') }}"
+                    class="action-card"
+                >
+
+                    <div class="action-icon green">
+                        👤
+                    </div>
+
+                    <div class="action-content">
+
+                        <h3>
+                            Meu perfil
+                        </h3>
+
+                        <p>
+                            Atualize seus dados e suas
+                            experiências profissionais.
+                        </p>
+
+                        <span class="action-link">
+                            Editar perfil →
+                        </span>
+
+                    </div>
+
+                </a>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- DICA -->
+
+        <section class="tip-card">
+
+            <div class="tip-icon">
+                💡
+            </div>
+
+            <div>
+
+                <h3>
+                    Mantenha seu perfil atualizado
+                </h3>
+
+                <p>
+                    Empresas podem analisar suas informações
+                    profissionais. Mantenha suas experiências
+                    sempre atualizadas para aumentar suas chances.
+                </p>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</body>
+
+</html>

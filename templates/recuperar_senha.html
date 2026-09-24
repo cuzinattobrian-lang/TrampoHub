@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Recuperar Senha - TrampoHub</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+<body>
+
+
+<main class="login-container">
+
+    <section class="login-card">
+
+
+        
+          
+            
+        </a>
+
+
+        <h1>
+            Recuperar senha
+        </h1>
+
+        <p>
+            Informe seu e-mail cadastrado e defina uma nova senha.
+        </p>
+
+
+        
+
+            <div class="alert alert-error">
+                
+            </div>
+
+        
+
+
+        
+
+            <div class="alert alert-success">
+                {{ sucesso }}
+            </div>
+
+        
+
+
+        <form
+            method="POST"
+            action="{{ url_for('routes.recuperar_senha') }}"
+        >
+
+            <div class="form-group">
+
+                <label for="email">
+                    E-mail cadastrado
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="seu@email.com"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="nova_senha">
+                    Nova senha
+                </label>
+
+                <input
+                    type="password"
+                    id="nova_senha"
+                    name="nova_senha"
+                    placeholder="Digite a nova senha"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="confirmar_nova_senha">
+                    Confirmar nova senha
+                </label>
+
+                <input
+                    type="password"
+                    id="confirmar_nova_senha"
+                    name="confirmar_nova_senha"
+                    placeholder="Repita a nova senha"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="full-button"
+            >
+                Redefinir senha
+            </button>
+
+
+        </form>
+
+
+        <div class="login-footer">
+
+            <p>
+                Lembrou sua senha?
+            </p>
+
+            <a href="{{ url_for('routes.login') }}">
+                Voltar para o login
+            </a>
+
+        </div>
+
+
+    </section>
+
+</main>
+
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro - TrampoHub</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+    <h1>TrampoHub</h1>
+    <h2>Formulário de candidatura</h2>
+
+    <!-- Exibição de mensagem amigável caso ocorra erro no Back-end -->
+    {% if erro %}
+        <p style="color: red; font-weight: bold;">{{ erro }}</p>
+    {% endif %}
+
+    <form action="/cadastrar" method="POST">
+        <label>Nome completo:</label><br>
+        <input type="text" name="nome"><br><br>
+
+        <label>E-mail:</label><br>
+        <input type="email" name="email"><br><br>
+
+        <label>Vaga:</label><br>
+        <select name="vaga">
+            <option value="">Selecione</option>
+            <option>Desenvolvedor Front-end Júnior</option>
+            <option>Desenvolvedor Back-end Júnior</option>
+            <option>Analista de Sistemas</option>
+            <option>Assistente Administrativo</option>
+        </select><br><br>
+
+        <label>Modalidade:</label><br>
+        <select name="modalidade">
+            <option value="">Selecione</option>
+            <option>Presencial</option>
+            <option>Híbrido</option>
+            <option>Remoto</option>
+        </select><br><br>
+
+        <label>Tipo de contrato:</label><br>
+        <select name="contrato">
+            <option value="">Selecione</option>
+            <option>CLT</option>
+            <option>PJ</option>
+            <option>Estágio</option>
+        </select><br><br>
+
+        <button type="submit">Enviar candidatura</button>
+    </form>
+    <br>
+    <a href="/">Voltar para o início</a>
+
+</body>
+</html>

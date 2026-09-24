@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>TrampoHub</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+<body>
+
+
+<header class="topbar">
+
+    <div class="topbar-content">
+
+        <a
+            href="{{ url_for('routes.inicio') }}"
+            class="brand"
+        >
+            Trampo<span>Hub</span>
+        </a>
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('routes.login', tipo='candidato') }}">
+                Entrar
+            </a>
+
+            <a href="{{ url_for('routes.cadastro') }}">
+                Criar conta
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="home">
+
+
+    <section class="hero">
+
+        <span class="hero-label">
+            PLATAFORMA DE EMPREGOS
+        </span>
+
+        <h1>
+            Encontre seu próximo
+            <span>emprego.</span>
+        </h1>
+
+        <p>
+            O TrampoHub conecta candidatos e empresas,
+            tornando o processo de contratação mais simples,
+            rápido e organizado.
+        </p>
+
+
+        <div class="hero-buttons">
+
+            <a
+                href="{{ url_for('routes.cadastro_candidato') }}"
+                class="btn-primary"
+            >
+                Sou candidato
+            </a>
+
+            <a
+                href="{{ url_for('routes.cadastro_empresa') }}"
+                class="btn-secondary"
+            >
+                Sou empresa
+            </a>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+</body>
+
+</html>
