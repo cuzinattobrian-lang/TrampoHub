@@ -1,9 +1,14 @@
+import os
+
 from flask import g
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
 # Arquivo único onde o SQLite vai guardar tudo
 DATABASE_URL = "sqlite:///trampohub.db"
+
+# Pasta onde as imagens enviadas pelos usuários (upload) são salvas
+UPLOAD_FOLDER = os.path.join("static", "uploads")
 
 
 engine = create_engine(
@@ -20,9 +25,27 @@ Base = declarative_base()
 
 
 def init_db():
-    """Cria as tabelas no banco (se ainda não existirem)."""
+    """Cria as tabelas no banco (se ainda não existirem) e garante que a
+    pasta de uploads e as colunas novas existam."""
     import models  # noqa: F401  (garante que os modelos sejam registrados)
     Base.metadata.create_all(bind=engine)
+    _migrar_colunas_novas()
+    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+
+def _migrar_colunas_novas():
+    """Base.metadata.create_all só cria tabelas que ainda não existem — ele
+    não adiciona colunas novas em tabelas já criadas anteriormente. Como o
+    SQLite não migra sozinho, adicionamos aqui a coluna "imagem" em bancos
+    (trampohub.db) que já existiam antes dela ser criada no model Vaga.
+    """
+    with engine.connect() as conn:
+        colunas = [linha[1] for linha in conn.exec_driver_sql("PRAGMA table_info(vagas)")]
+        if "imagem" not in colunas:
+            conn.exec_driver_sql(
+                "ALTER TABLE vagas ADD COLUMN imagem VARCHAR(255) DEFAULT 'padrao.png'"
+            )
+            conn.commit()
 
 
 def get_db():

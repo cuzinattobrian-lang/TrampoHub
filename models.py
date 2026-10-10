@@ -57,6 +57,11 @@ class Vaga(Base):
     # apenas das listagens visíveis ao usuário.
     ativo = Column(Boolean, nullable=False, default=True)
 
+    # Nome do arquivo de imagem salvo em static/uploads/ (ex.: banner/logo
+    # da vaga). Se a empresa não enviar nenhuma foto, fica com a imagem
+    # padrão "padrao.png".
+    imagem = Column(String(255), nullable=False, default="padrao.png")
+
     empresa = relationship("Usuario", back_populates="vagas")
 
     candidaturas = relationship(

@@ -90,43 +90,62 @@
     </section>
 
 
+    {% for categoria, mensagem in get_flashed_messages(with_categories=true) %}
+
+        <div class="alert alert-{{ 'error' if categoria == 'erro' else 'success' }}">
+            {{ mensagem }}
+        </div>
+
+    {% endfor %}
+
+
     {% if vagas %}
 
         {% for vaga in vagas %}
 
-            <article class="vaga-card">
+            <article class="vaga-card vaga-card-com-imagem">
 
-                <h2>
-                    {{ vaga.titulo }}
-                </h2>
-
-                <div class="vaga-info">
-
-                    <span class="vaga-tag">
-                        {{ vaga.modalidade }}
-                    </span>
-
-                    <span class="vaga-tag">
-                        {{ vaga.contrato }}
-                    </span>
-
-                </div>
-
-                <p>
-                    {{ vaga.descricao }}
-                </p>
-
-                <form
-                    method="POST"
-                    action="{{ url_for('routes.excluir_vaga', id=vaga.id) }}"
-                    onsubmit="return confirm('Excluir esta vaga? As candidaturas relacionadas também serão removidas.');"
+                <img
+                    src="{{ url_for('static', filename='uploads/' ~ vaga.imagem) }}"
+                    alt="Imagem da vaga {{ vaga.titulo }}"
+                    class="vaga-thumb"
                 >
 
-                    <button type="submit" class="btn-secondary">
-                        Excluir vaga
-                    </button>
+                <div class="vaga-card-conteudo">
 
-                </form>
+                    <h2>
+                        {{ vaga.titulo }}
+                    </h2>
+
+                    <div class="vaga-info">
+
+                        <span class="vaga-tag">
+                            {{ vaga.modalidade }}
+                        </span>
+
+                        <span class="vaga-tag">
+                            {{ vaga.contrato }}
+                        </span>
+
+                    </div>
+
+                    <p>
+                        {{ vaga.descricao }}
+                    </p>
+
+                    <form
+                        method="POST"
+                        action="{{ url_for('routes.excluir_vaga', id=vaga.id) }}"
+                        onsubmit="return confirm('Excluir esta vaga? As candidaturas relacionadas também serão removidas.');"
+                    >
+
+                        <button type="submit" class="btn-secondary">
+                            Excluir vaga
+                        </button>
+
+                    </form>
+
+                </div>
 
             </article>
 

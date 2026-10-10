@@ -107,49 +107,59 @@
 
             {% for vaga in vagas %}
 
-                <article class="vaga-card">
+                <article class="vaga-card vaga-card-com-imagem">
 
-                    <h2>
-                        {{ vaga.titulo }}
-                    </h2>
+                    <img
+                        src="{{ url_for('static', filename='uploads/' ~ vaga.imagem) }}"
+                        alt="Imagem da vaga {{ vaga.titulo }}"
+                        class="vaga-thumb"
+                    >
 
-                    <h3>
-                        {{ vaga.empresa_nome }}
-                    </h3>
+                    <div class="vaga-card-conteudo">
+
+                        <h2>
+                            {{ vaga.titulo }}
+                        </h2>
+
+                        <h3>
+                            {{ vaga.empresa_nome }}
+                        </h3>
 
 
-                    <div class="vaga-info">
-
-                        <span class="vaga-tag">
-                            {{ vaga.modalidade }}
-                        </span>
-
-                        <span class="vaga-tag">
-                            {{ vaga.contrato }}
-                        </span>
-
-                        {% if vaga.salario %}
+                        <div class="vaga-info">
 
                             <span class="vaga-tag">
-                                {{ vaga.salario }}
+                                {{ vaga.modalidade }}
                             </span>
 
-                        {% endif %}
+                            <span class="vaga-tag">
+                                {{ vaga.contrato }}
+                            </span>
+
+                            {% if vaga.salario %}
+
+                                <span class="vaga-tag">
+                                    {{ vaga.salario }}
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <p>
+                            {{ vaga.descricao }}
+                        </p>
+
+
+                        <a
+                            href="{{ url_for('routes.detalhes_vaga', id=vaga.id) }}"
+                            class="btn-primary"
+                        >
+                            Ver detalhes
+                        </a>
 
                     </div>
-
-
-                    <p>
-                        {{ vaga.descricao }}
-                    </p>
-
-
-                    <a
-                        href="{{ url_for('routes.detalhes_vaga', id=vaga.id) }}"
-                        class="btn-primary"
-                    >
-                        Ver detalhes
-                    </a>
 
                 </article>
 

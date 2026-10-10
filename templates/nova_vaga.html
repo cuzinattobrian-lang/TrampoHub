@@ -75,11 +75,39 @@
 
         {% endif %}
 
+        {% for categoria, mensagem in get_flashed_messages(with_categories=true) %}
+
+            <div class="alert alert-{{ 'error' if categoria == 'erro' else 'success' }}">
+                {{ mensagem }}
+            </div>
+
+        {% endfor %}
+
 
         <form
             method="POST"
             action="{{ url_for('routes.nova_vaga') }}"
+            enctype="multipart/form-data"
         >
+
+
+            <div class="form-group">
+
+                <label>
+                    Foto/banner da vaga
+                </label>
+
+                <input
+                    type="file"
+                    name="imagem"
+                    accept="image/*"
+                >
+
+                <small>
+                    Formatos aceitos: PNG, JPG, JPEG ou WEBP. Se nada for enviado, usamos uma imagem padrão.
+                </small>
+
+            </div>
 
 
             <div class="form-group">

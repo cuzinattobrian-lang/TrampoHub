@@ -8,3 +8,8 @@ venv/
 # Banco de dados local (cada máquina cria o seu via init_db())
 *.db
 instance/
+
+# Fotos enviadas durante os testes locais (Entrega 05 — upload de imagens).
+# A imagem padrão é a única exceção e continua versionada.
+static/uploads/*
+!static/uploads/padrao.png

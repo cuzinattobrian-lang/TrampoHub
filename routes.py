@@ -1,12 +1,75 @@
-from flask import Blueprint, render_template, request, redirect, url_for, session
+import os
+import uuid
+
+from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
  
-from database import get_db
+from database import get_db, UPLOAD_FOLDER
 from models import Usuario, Vaga, Candidatura
  
 bp = Blueprint("routes", __name__)
- 
- 
+
+
+# =========================================================
+# UPLOAD DE IMAGENS (Entrega 05)
+# =========================================================
+
+EXTENSOES_PERMITIDAS = {"png", "jpg", "jpeg", "webp"}
+IMAGEM_PADRAO = "padrao.png"
+
+
+def extensao_permitida(nome_arquivo):
+    """Verifica se a extensão do arquivo está na lista de formatos aceitos."""
+    return (
+        "." in nome_arquivo
+        and nome_arquivo.rsplit(".", 1)[1].lower() in EXTENSOES_PERMITIDAS
+    )
+
+
+def salvar_imagem_vaga(arquivo):
+    """Processa o arquivo enviado no campo <input type="file"> do formulário.
+
+    Retorna uma tupla (nome_do_arquivo, erro):
+    - Se o usuário não enviou nenhuma foto -> usa a imagem padrão.
+    - Se enviou um arquivo com extensão não permitida -> retorna erro.
+    - Se enviou uma imagem válida -> sanitiza o nome, salva em
+      static/uploads/ e retorna o nome gerado.
+    """
+
+    if not arquivo or arquivo.filename == "":
+        return IMAGEM_PADRAO, None
+
+    if not extensao_permitida(arquivo.filename):
+        return None, "Formato de arquivo não permitido. Envie uma imagem PNG, JPG, JPEG ou WEBP."
+
+    # secure_filename remove caracteres perigosos (barras, espaços, acentos
+    # etc.) do nome original do arquivo enviado pelo usuário
+    nome_seguro = secure_filename(arquivo.filename)
+
+    # Prefixo único (uuid) evita que duas empresas enviando arquivos com o
+    # mesmo nome (ex.: "logo.png") sobrescrevam uma a imagem da outra
+    nome_arquivo = f"{uuid.uuid4().hex}_{nome_seguro}"
+
+    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+    arquivo.save(os.path.join(UPLOAD_FOLDER, nome_arquivo))
+
+    return nome_arquivo, None
+
+
+def excluir_imagem_vaga(nome_arquivo):
+    """Remove o arquivo físico de static/uploads/, exceto se for a imagem
+    padrão (que é compartilhada por todas as vagas sem foto)."""
+
+    if not nome_arquivo or nome_arquivo == IMAGEM_PADRAO:
+        return
+
+    caminho = os.path.join(UPLOAD_FOLDER, nome_arquivo)
+
+    if os.path.isfile(caminho):
+        os.remove(caminho)
+
+
 # FUNÇÕES AUXILIARES
  
 def usuario_logado():
@@ -665,7 +728,20 @@ def nova_vaga():
             "nova_vaga.html",
             erro="Preencha todos os campos obrigatórios.",
         )
- 
+
+    # ---- UPLOAD DA IMAGEM DA VAGA ----
+    # request.files (não request.form) é onde ficam os arquivos enviados
+    # por um <input type="file">, e só funciona porque o <form> está com
+    # enctype="multipart/form-data"
+    arquivo_imagem = request.files.get("imagem")
+    nome_imagem, erro_imagem = salvar_imagem_vaga(arquivo_imagem)
+
+    if erro_imagem:
+        # Formato não permitido: avisa via flash message e volta pro
+        # formulário (sem perder o usuário na tela, mas sem gravar nada)
+        flash(erro_imagem, "erro")
+        return redirect(url_for("routes.nova_vaga"))
+
     nova_vaga_registro = Vaga(
         empresa_id=usuario.id,
         titulo=titulo,
@@ -674,6 +750,7 @@ def nova_vaga():
         salario=salario,
         modalidade=modalidade,
         contrato=contrato,
+        imagem=nome_imagem,
     )
  
     db.add(nova_vaga_registro)
@@ -738,8 +815,12 @@ def excluir_vaga(id):
     # Soft delete: marca a vaga como inativa em vez de apagar do banco.
     # As candidaturas relacionadas continuam intactas, preservando o histórico.
     if vaga and vaga.empresa_id == usuario.id:
+        # Apaga o arquivo físico da imagem em static/uploads/ (se não for a
+        # imagem padrão), já que a vaga some das listagens visíveis
+        excluir_imagem_vaga(vaga.imagem)
         vaga.ativo = False
         db.commit()
+        flash("Vaga excluída com sucesso!", "sucesso")
  
     return redirect(url_for("routes.vagas_empresa"))
  
